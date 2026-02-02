@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Greentick Cloud Academy — Master the Cloud, Secure Your Future</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #0b1628;
+    --navy-mid: #112240;
+    --navy-light: #1a3358;
+    --blue: #2563eb;
+    --blue-light: #3b82f6;
+    --cyan: #22d3ee;
+    --green: #16a34a;
+    --green-light: #22c55e;
+    --white: #f1f5f9;
+    --white-dim: #94a3b8;
+    --white-dimmer: #64748b;
+    --gold: #f59e0b;
+    --text: #e2e8f0;
+    --accent-glow: rgba(34, 211, 238, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════
+     BACKGROUND EFFECTS
+  ═══════════════════════════════════════ */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(34,211,238,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.03) 1px, transparent 1px);
+    background-size: 70px 70px;
+  }
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(120px);
+    pointer-events: none; z-index: 0;
+  }
+  .orb-1 { width: 500px; height: 500px; background: rgba(37,99,235,0.07); top: -150px; right: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: rgba(34,211,238,0.05); bottom: 20%; left: -120px; }
+  .orb-3 { width: 300px; height: 300px; background: rgba(22,163,74,0.06); top: 60%; right: 10%; }
+
+  /* ═══════════════════════════════════════
+     NAVBAR
+  ═══════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,22,40,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(34,211,238,0.12);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--green-light), var(--cyan));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .nav-logo-text { font-size: 1.25rem; font-weight: 700; color: #fff; }
+  .nav-logo-text span { color: var(--cyan); }
+
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    color: var(--white-dim); text-decoration: none;
+    font-size: 0.88rem; font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--green), #15803d);
+    color: #fff; padding: 10px 22px; border-radius: 8px;
+    font-weight: 600; font-size: 0.85rem;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.3s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(22,163,74,0.4);
+  }
+
+  /* Mobile nav toggle */
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .nav-toggle span { width: 24px; height: 2px; background: var(--white-dim); border-radius: 2px; transition: 0.3s; }
+
+  /* ═══════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════ */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 24px 80px;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(22,163,74,0.12);
+    border: 1px solid rgba(22,163,74,0.3);
+    border-radius: 50px; padding: 7px 16px;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--green-light); margin-bottom: 28px;
+    width: fit-content;
+  }
+  .badge-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-light);
+    box-shadow: 0 0 8px var(--green-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-left h1 {
+    font-size: clamp(2.6rem, 5.5vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px; color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-left h1 .grad {
+    background: linear-gradient(135deg, var(--cyan), var(--blue-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-left > p {
+    font-size: 1.05rem; color: var(--white-dim);
+    max-width: 480px; margin-bottom: 36px; line-height: 1.75;
+  }
+
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn-enroll {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--green), #15803d);
+    color: #fff; padding: 15px 30px; border-radius: 10px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.3s;
+  }
+  .btn-enroll:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(22,163,74,0.45);
+  }
+  .btn-learn {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--cyan); font-weight: 600; font-size: 0.92rem;
+    text-decoration: none; transition: gap 0.3s;
+  }
+  .btn-learn:hover { gap: 12px; }
+
+  /* Hero Right — Stats Card */
+  .hero-right { display: flex; justify-content: center; }
+  .stats-card {
+    background: linear-gradient(145deg, var(--navy-mid), var(--navy-light));
+    border: 1px solid rgba(34,211,238,0.15);
+    border-radius: 20px; padding: 40px 36px;
+    width: 100%; max-width: 380px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  }
+  .stats-card-title {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--cyan);
+    font-weight: 600; margin-bottom: 28px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-row {
+    display: flex; align-items: center; gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .stat-icon.blue { background: rgba(37,99,235,0.15); }
+  .stat-icon.green { background: rgba(22,163,74,0.15); }
+  .stat-icon.cyan { background: rgba(34,211,238,0.12); }
+  .stat-icon.gold { background: rgba(245,158,11,0.15); }
+  .stat-info h4 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .stat-info p { font-size: 0.78rem; color: var(--white-dimmer); }
+
+  /* ═══════════════════════════════════════
+     TRUST BAR
+  ═══════════════════════════════════════ */
+  .trust-bar {
+    position: relative; z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 24px;
+    background: rgba(17,34,64,0.5);
+  }
+  .trust-bar-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; justify-content: center; align-items: center;
+    gap: 48px; flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: 10px; }
+  .trust-item .icon { font-size: 1.3rem; }
+  .trust-item p { font-size: 0.82rem; color: var(--white-dim); font-weight: 500; }
+
+  /* ═══════════════════════════════════════
+     SECTION SHARED
+  ═══════════════════════════════════════ */
+  .section { position: relative; z-index: 1; padding: 100px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--cyan);
+    text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    font-weight: 800; color: #fff; letter-spacing: -0.8px;
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--white-dim);
+    max-width: 580px; line-height: 1.7; margin-bottom: 52px;
+  }
+
+  /* ═══════════════════════════════════════
+     WHAT YOU GET (3 pillars)
+  ═══════════════════════════════════════ */
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .pillar-card {
+    background: linear-gradient(145deg, var(--navy-mid), rgba(17,34,64,0.7));
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 36px 28px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .pillar-card::before {
+    content: ''; position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    opacity: 0.08; transition: opacity 0.3s;
+  }
+  .pillar-card.c-blue::before { background: var(--blue); }
+  .pillar-card.c-green::before { background: var(--green); }
+  .pillar-card.c-cyan::before { background: var(--cyan); }
+  .pillar-card:hover { border-color: rgba(34,211,238,0.3); transform: translateY(-4px); }
+  .pillar-card:hover::before { opacity: 0.15; }
+
+  .pillar-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--cyan);
+    margin-bottom: 18px; letter-spacing: 1px;
+  }
+  .pillar-card h3 { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .pillar-card p { font-size: 0.85rem; color: var(--white-dim); line-height: 1.7; }
+
+  /* ═══════════════════════════════════════
+     SYLLABUS
+  ═══════════════════════════════════════ */
+  .syllabus-bg { background: rgba(17,34,64,0.4); }
+
+  .syllabus-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;
+  }
+  .syllabus-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .syllabus-card:hover { border-color: rgba(34,211,238,0.3); transform: translateY(-3px); }
+
+  .syllabus-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 22px 16px;
+  }
+  .syllabus-num {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(34,211,238,0.1);
+    border: 1px solid rgba(34,211,238,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem; color: var(--cyan); font-weight: 500;
+    flex-shrink: 0;
+  }
+  .syllabus-header h3 { font-size: 0.95rem; font-weight: 700; color: #fff; }
+  .syllabus-header .duration {
+    font-size: 0.7rem; color: var(--white-dimmer);
+    margin-top: 2px; font-family: 'JetBrains Mono', monospace;
+  }
+
+  .syllabus-topics {
+    padding: 0 22px 20px; list-style: none;
+  }
+  .syllabus-topics li {
+    font-size: 0.8rem; color: var(--white-dim);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .syllabus-topics li:last-child { border-bottom: none; }
+  .syllabus-topics li::before {
+    content: '›'; color: var(--cyan); font-weight: 700; flex-shrink: 0;
+  }
+
+  .syllabus-cta-wrap {
+    text-align: center; margin-top: 56px;
+  }
+
+  /* ═══════════════════════════════════════
+     GUARANTEE BANNER
+  ═══════════════════════════════════════ */
+  .guarantee {
+    background: linear-gradient(135deg, #14532d 0%, #1a3358 50%, #14532d 100%);
+    border-top: 1px solid rgba(34,211,238,0.15);
+    border-bottom: 1px solid rgba(34,211,238,0.15);
+    padding: 80px 24px;
+  }
+  .guarantee-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center;
+  }
+  .guarantee-shield {
+    width: 160px; height: 160px;
+    background: rgba(22,163,74,0.12);
+    border: 2px solid rgba(22,163,74,0.3);
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px;
+  }
+  .guarantee-shield .shield-icon { font-size: 2.8rem; }
+  .guarantee-shield .shield-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--green-light);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .guarantee-content h2 {
+    font-size: 2rem; font-weight: 800; color: #fff;
+    margin-bottom: 14px; letter-spacing: -0.5px;
+  }
+  .guarantee-content h2 span { color: var(--green-light); }
+  .guarantee-content p { color: var(--white-dim); font-size: 0.95rem; line-height: 1.8; }
+  .guarantee-perks {
+    display: flex; gap: 24px; flex-wrap: wrap; margin-top: 24px;
+  }
+  .guarantee-perk {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.85rem; color: var(--green-light); font-weight: 500;
+  }
+  .guarantee-perk .check { font-size: 1rem; }
+
+  /* ═══════════════════════════════════════
+     WHY GREENTICK (Features)
+  ═══════════════════════════════════════ */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px;
+  }
+  .feature-card {
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; padding: 30px 26px;
+    display: flex; gap: 20px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .feature-card:hover { border-color: rgba(34,211,238,0.25); transform: translateY(-2px); }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+    background: rgba(34,211,238,0.1);
+  }
+  .feature-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .feature-card p { font-size: 0.82rem; color: var(--white-dim); line-height: 1.65; }
+
+  /* ═══════════════════════════════════════
+     FAQ
+  ═══════════════════════════════════════ */
+  .faq-list { max-width: 780px; }
+  .faq-item {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; margin-bottom: 12px;
+    overflow: hidden; transition: border-color 0.3s;
+  }
+  .faq-item:hover { border-color: rgba(34,211,238,0.2); }
+  .faq-question {
+    width: 100%; background: none; border: none;
+    color: #fff; text-align: left;
+    padding: 20px 24px; font-size: 0.92rem; font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; transition: color 0.3s;
+  }
+  .faq-question:hover { color: var(--cyan); }
+  .faq-icon {
+    font-size: 1.2rem; color: var(--cyan);
+    transition: transform 0.3s; flex-shrink: 0;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    color: var(--white-dim); font-size: 0.84rem; line-height: 1.75;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding: 0 24px 22px;
+  }
+
+  /* ═══════════════════════════════════════
+     CONTACT / CTA FOOTER
+  ═══════════════════════════════════════ */
+  .contact-section {
+    background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 100%);
+    border-top: 1px solid rgba(34,211,238,0.1);
+    padding: 100px 24px;
+  }
+  .contact-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: start;
+  }
+  .contact-left .section-title { margin-bottom: 12px; }
+  .contact-left > p { margin-bottom: 36px; }
+
+  .contact-methods { display: flex; flex-direction: column; gap: 16px; }
+  .contact-method {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--navy-mid);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 18px 22px;
+    text-decoration: none; transition: border-color 0.3s, transform 0.2s;
+  }
+  .contact-method:hover { border-color: rgba(34,211,238,0.3); transform: translateX(4px); }
+  .contact-method-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .cm-green { background: rgba(22,163,74,0.15); }
+  .cm-blue { background: rgba(37,99,235,0.15); }
+  .cm-cyan { background: rgba(34,211,238,0.12); }
+  .contact-method h4 { font-size: 0.88rem; font-weight: 600; color: #fff; }
+  .contact-method p { font-size: 0.77rem; color: var(--white-dimmer); margin-top: 2px; }
+
+  /* Contact Right — enroll card */
+  .enroll-card {
+    background: linear-gradient(145deg, var(--navy-mid), var(--navy-light));
+    border: 1px solid rgba(34,211,238,0.2);
+    border-radius: 20px; padding: 44px 36px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .enroll-card .enroll-icon { font-size: 2.8rem; margin-bottom: 18px; }
+  .enroll-card h3 { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .enroll-card > p { font-size: 0.85rem; color: var(--white-dim); margin-bottom: 28px; line-height: 1.7; }
+  .btn-enroll-large {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--green), #15803d);
+    color: #fff; padding: 16px 34px; border-radius: 12px;
+    font-weight: 700; font-size: 1rem;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.3s;
+    width: 100%; justify-content: center;
+  }
+  .btn-enroll-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(22,163,74,0.45);
+  }
+  .enroll-card .enroll-note {
+    font-size: 0.72rem; color: var(--white-dimmer);
+    margin-top: 18px; font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ═══════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════ */
+  footer {
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 48px 24px 32px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--green-light), var(--cyan));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .footer-left p { font-size: 0.78rem; color: var(--white-dimmer); }
+  .footer-right { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-right a { color: var(--white-dimmer); font-size: 0.78rem; text-decoration: none; transition: color 0.3s; }
+  .footer-right a:hover { color: var(--cyan); }
+
+  /* ═══════════════════════════════════════
+     FLOATING WHATSAPP BUTTON
+  ═══════════════════════════════════════ */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 100;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(135deg, #25d366, #128c17);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 1.7rem;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: float-bounce 3s ease-in-out infinite;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+  }
+  @keyframes float-bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .whatsapp-float .pulse-ring {
+    position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.4);
+    animation: ring-pulse 2s ease-out infinite;
+  }
+  @keyframes ring-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  /* ═══════════════════════════════════════
+     SCROLL REVEAL
+  ═══════════════════════════════════════ */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-right { order: -1; }
+    .stats-card { max-width: 100%; }
+    .guarantee-inner { grid-template-columns: 1fr; text-align: center; }
+    .guarantee-shield { margin: 0 auto; }
+    .guarantee-perks { justify-content: center; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pillars-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .hero-left h1 { font-size: 2.2rem; }
+    .section { padding: 70px 20px; }
+    .syllabus-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ══════ NAVBAR ══════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">✓</div>
+      <div class="nav-logo-text">Green<span>tick</span> Cloud Academy</div>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#syllabus">Curriculum</a>
+      <a href="#guarantee">Guarantee</a>
+      <a href="#why">Why Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://wa.me/2349162828407" target="_blank" class="nav-cta">📱 Enroll Now</a>
+    </div>
+    <div class="nav-toggle" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <!-- Mobile menu (hidden by default) -->
+  <div id="mobile-menu" style="display:none; padding: 16px 0 20px; border-top: 1px solid rgba(255,255,255,0.06);">
+    <a href="#about" onclick="closeMobileNav()" style="display:block; color:var(--white-dim); padding:10px 24px; font-size:0.9rem; text-decoration:none;">About</a>
+    <a href="#syllabus" onclick="closeMobileNav()" style="display:block; color:var(--white-dim); padding:10px 24px; font-size:0.9rem; text-decoration:none;">Curriculum</a>
+    <a href="#guarantee" onclick="closeMobileNav()" style="display:block; color:var(--white-dim); padding:10px 24px; font-size:0.9rem; text-decoration:none;">Guarantee</a>
+    <a href="#why" onclick="closeMobileNav()" style="display:block; color:var(--white-dim); padding:10px 24px; font-size:0.9rem; text-decoration:none;">Why Us</a>
+    <a href="#faq" onclick="closeMobileNav()" style="display:block; color:var(--white-dim); padding:10px 24px; font-size:0.9rem; text-decoration:none;">FAQ</a>
+    <a href="https://wa.me/2349162828407" target="_blank" style="display:block; margin:12px 24px 0; text-align:center; background:linear-gradient(135deg,#16a34a,#15803d); color:#fff; padding:12px; border-radius:10px; font-weight:600; text-decoration:none; font-size:0.88rem;">📱 Enroll Now</a>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge"><div class="badge-dot"></div> Now Enrolling — 7 Month Program</div>
+      <h1>Master the Cloud.<br/><span class="grad">Secure Your Future.</span></h1>
+      <p>Become a Certified Cloud or DevOps Engineer with hands-on, real-world training — from absolute beginner to job-ready professional. No prior experience needed.</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/2349162828407" target="_blank" class="btn-enroll">📱 Start Your Journey →</a>
+        <a href="#syllabus" class="btn-learn">View Curriculum →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stats-card">
+        <div class="stats-card-title">// what's included</div>
+        <div class="stat-row">
+          <div class="stat-icon blue">🎓</div>
+          <div class="stat-info"><h4>3 Certifiable Tracks</h4><p>Cloud, DevOps & Engineering</p></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon green">💼</div>
+          <div class="stat-info"><h4>$100K+ Job Guarantee</h4><p>Within 6 months of completion</p></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon cyan">🛠️</div>
+          <div class="stat-info"><h4>Real-World Labs</h4><p>Hands-on projects & use cases</p></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-icon gold">📄</div>
+          <div class="stat-info"><h4>Resume & Interview Prep</h4><p>Professional career support</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TRUST BAR ══════ -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item"><span class="icon">⭐</span><p>4.9/5 Student Rating</p></div>
+    <div class="trust-item"><span class="icon">👨‍🎓</span><p>500+ Graduates</p></div>
+    <div class="trust-item"><span class="icon">🏢</span><p>Top-Tier Placements</p></div>
+    <div class="trust-item"><span class="icon">🔄</span><p>Lifetime Community Access</p></div>
+  </div>
+</div>
+
+<!-- ══════ ABOUT / PILLARS ══════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// what you'll get</div>
+      <h2 class="section-title">Training Built for<br/>Real-World Success</h2>
+      <p class="section-sub">We don't just teach theory. Every lesson is backed by hands-on labs, live projects, and mentorship from practicing engineers in the industry.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card c-blue reveal">
+        <div class="pillar-num">01 // HANDS-ON LABS</div>
+        <h3>Learn by Doing</h3>
+        <p>Every module comes with real-time use case scenarios. You'll deploy actual infrastructure on AWS, build CI/CD pipelines, and manage Kubernetes clusters — not just read about them.</p>
+      </div>
+      <div class="pillar-card c-green reveal">
+        <div class="pillar-num">02 // CAREER SUPPORT</div>
+        <h3>From Resume to Hired</h3>
+        <p>We help you craft a standout DevOps resume, prepare for technical interviews, and connect you with hiring managers. Our job assistance doesn't stop until you land the role.</p>
+      </div>
+      <div class="pillar-card c-cyan reveal">
+        <div class="pillar-num">03 // COMMUNITY</div>
+        <h3>Lifetime Access</h3>
+        <p>Join a closed community of like-minded engineers. Get lifetime access to updated materials, peer support, networking events, and continuous learning resources.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SYLLABUS ══════ -->
+<section class="section syllabus-bg" id="syllabus">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// curriculum</div>
+      <h2 class="section-title">Comprehensive 7-Month<br/>Learning Path</h2>
+      <p class="section-sub">A carefully structured syllabus that takes you from zero to expert. Each module builds on the last, ensuring you develop deep, practical knowledge.</p>
+    </div>
+    <div class="syllabus-grid">
+
+      <!-- 1 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">01</div>
+          <div><h3>DevOps Introduction</h3><div class="duration">⏱ Week 1</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>SDLC — Waterfall & Agile/Scrum Models</li>
+          <li>What is DevOps & Why It Matters</li>
+          <li>DevOps Lifecycle & Tools Overview</li>
+          <li>Market Trends & Career Scope</li>
+        </ul>
+      </div>
+
+      <!-- 2 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">02</div>
+          <div><h3>Linux Fundamentals</h3><div class="duration">⏱ 3 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>AWS Account Setup & EC2 Instances</li>
+          <li>Linux File System & 40+ Core Commands</li>
+          <li>User & Group Management</li>
+          <li>SSH, SCP, Rsync & Remote Access</li>
+          <li>Cron Jobs & Process Management</li>
+        </ul>
+      </div>
+
+      <!-- 3 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">03</div>
+          <div><h3>Shell Scripting</h3><div class="duration">⏱ 1–2 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Variables, Arguments & Escape Characters</li>
+          <li>Control Flow — If, For, While, Switch</li>
+          <li>Functions, Pipes & Redirection</li>
+          <li>Real-World Automation Scripts</li>
+        </ul>
+      </div>
+
+      <!-- 4 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">04</div>
+          <div><h3>Git & GitHub</h3><div class="duration">⏱ 10 Hours</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Version Control & SCM Basics</li>
+          <li>Branching Strategies & Merging</li>
+          <li>SSH Keys & Personal Access Tokens</li>
+          <li>Best Practices for Code Commits</li>
+        </ul>
+      </div>
+
+      <!-- 5 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">05</div>
+          <div><h3>Maven & App Servers</h3><div class="duration">⏱ 8 Hours</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Maven Lifecycle & pom.xml</li>
+          <li>Tomcat / JBoss Installation & Config</li>
+          <li>Application Deployment & Tuning</li>
+          <li>Apache HTTP Server Setup</li>
+        </ul>
+      </div>
+
+      <!-- 6 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">06</div>
+          <div><h3>CI/CD with Jenkins</h3><div class="duration">⏱ 3–4 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Jenkins Installation & Architecture</li>
+          <li>Freestyle, Maven & Pipeline Jobs</li>
+          <li>Integrations — SonarQube, Nexus, Tomcat</li>
+          <li>Master/Slave, Security & Webhooks</li>
+        </ul>
+      </div>
+
+      <!-- 7 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">07</div>
+          <div><h3>Docker & Containers</h3><div class="duration">⏱ 18 Hours</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Containers vs Virtualization</li>
+          <li>Dockerfiles, Images & Containers</li>
+          <li>Networks, Volumes & Docker Compose</li>
+          <li>Docker Swarm & Private Registries</li>
+        </ul>
+      </div>
+
+      <!-- 8 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">08</div>
+          <div><h3>Kubernetes (CKA Prep)</h3><div class="duration">⏱ 27 Hours</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>K8s Architecture & Cluster Setup</li>
+          <li>Pods, Deployments, Services & Ingress</li>
+          <li>Helm, RBAC & Monitoring</li>
+          <li>EKS & KOPS on AWS</li>
+        </ul>
+      </div>
+
+      <!-- 9 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">09</div>
+          <div><h3>Ansible Automation</h3><div class="duration">⏱ 2 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Architecture, Adhoc Commands & Playbooks</li>
+          <li>Roles, Variables & Loops</li>
+          <li>Ansible Vault & Galaxy</li>
+          <li>Dynamic Inventory & Real Projects</li>
+        </ul>
+      </div>
+
+      <!-- 10 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">10</div>
+          <div><h3>AWS Cloud</h3><div class="duration">⏱ 4 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>EC2, EBS, EFS & S3 Deep Dive</li>
+          <li>IAM, VPC & Security Groups</li>
+          <li>CloudFormation & Auto Scaling</li>
+          <li>Real-World AWS Architecture</li>
+        </ul>
+      </div>
+
+      <!-- 11 -->
+      <div class="syllabus-card reveal">
+        <div class="syllabus-header">
+          <div class="syllabus-num">11</div>
+          <div><h3>Terraform (IaC)</h3><div class="duration">⏱ 2 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Terraform Installation & Basics</li>
+          <li>Infrastructure Automation with AWS</li>
+          <li>State Management & Modules</li>
+          <li>Terraform + Ansible Integration</li>
+        </ul>
+      </div>
+
+      <!-- 12 -->
+      <div class="syllabus-card reveal" style="grid-column: 1 / -1; max-width: 560px; margin: 0 auto; width: 100%;">
+        <div class="syllabus-header">
+          <div class="syllabus-num" style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.3); color:var(--gold);">★</div>
+          <div><h3>Capstone Projects (6 Real Projects)</h3><div class="duration">⏱ Final 2 Weeks</div></div>
+        </div>
+        <ul class="syllabus-topics">
+          <li>Jenkins + GitHub + Maven + SonarQube + Nexus + Tomcat</li>
+          <li>Full CI/CD Pipeline with Docker & Kubernetes</li>
+          <li>Jenkins + Maven + SonarQube + Ansible + Docker</li>
+          <li>Docker Swarm & Kubernetes Deployments</li>
+          <li>Infrastructure Automation with Terraform + Ansible</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="syllabus-cta-wrap reveal">
+      <a href="https://wa.me/2349162828407" target="_blank" class="btn-enroll">📱 Enroll & Get Started →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GUARANTEE ══════ -->
+<div class="guarantee" id="guarantee">
+  <div class="guarantee-inner">
+    <div class="guarantee-shield reveal">
+      <div class="shield-icon">🛡️</div>
+      <div class="shield-text">Guaranteed</div>
+    </div>
+    <div class="reveal">
+      <h2>$100K+ Job Guarantee<br/><span>Within 6 Months</span></h2>
+      <p>We are confident in the quality of our training. Once you complete the program, we guarantee job placement paying $100,000+ within 6 months — or we continue supporting you until you land the role. This is our commitment to your success.</p>
+      <div class="guarantee-perks">
+        <div class="guarantee-perk"><span class="check">✓</span> Dedicated Job Placement Support</div>
+        <div class="guarantee-perk"><span class="check">✓</span> Resume Writing & Review</div>
+        <div class="guarantee-perk"><span class="check">✓</span> Mock Interview Sessions</div>
+        <div class="guarantee-perk"><span class="check">✓</span> Referral Network Access</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ WHY GREENTICK ══════ -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// why greentick</div>
+      <h2 class="section-title">Why Engineers Choose Us</h2>
+      <p class="section-sub">We've engineered every part of this program to match what the industry actually demands — not what textbooks say.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏗️</div>
+        <div>
+          <h3>100% Hands-On Training</h3>
+          <p>Every lesson is paired with a live lab. You'll work on real AWS infrastructure, deploy real apps, and solve real problems — from day one.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📋</div>
+        <div>
+          <h3>Soft Copy Materials Included</h3>
+          <p>Get comprehensive study materials, cheat sheets, and curated interview questions for every module — yours to keep forever.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎯</div>
+        <div>
+          <h3>Interview-Focused Curriculum</h3>
+          <p>We design our curriculum around what top companies actually ask. Practice with real interview questions and get coached on how to answer them.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🤝</div>
+        <div>
+          <h3>Mentorship & Peer Support</h3>
+          <p>Learn alongside a community of engineers on the same journey. Get mentored by industry professionals who have walked the same path.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📈</div>
+        <div>
+          <h3>Career Acceleration</h3>
+          <p>From resume crafting to interview prep and job referrals — we don't just train you, we help you get hired fast.</p>
+        </div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <h3>Lifetime Access & Updates</h3>
+          <p>The cloud evolves fast. Your access to materials and community never expires, so you stay current with the latest tools and trends.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAQ ══════ -->
+<section class="section" id="faq" style="background: rgba(17,34,64,0.3);">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// questions</div>
+      <h2 class="section-title">Frequently Asked<br/>Questions</h2>
+      <p class="section-sub">Got questions? We've got answers. If you don't see yours here, reach out to us directly.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need prior experience to enroll?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Absolutely not. Our program is designed to take you from zero knowledge to an expert-level DevOps or Cloud Engineer. We start from the very basics — Linux, cloud fundamentals — and build up step by step. All you need is a laptop and a willingness to learn.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does the program take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">The full program is a 7-month intensive course. It's structured so you can balance it alongside other commitments, but we recommend dedicating consistent time each week to stay on track and absorb the material fully.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does the $100K job guarantee actually mean?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Once you complete the full program, we guarantee to support you in landing a job paying $100,000+ within 6 months. This includes resume preparation, interview coaching, job referrals, and ongoing career support until you are placed.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What tools and platforms will I learn?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">You'll learn the full DevOps stack — Linux, Git, Jenkins, Docker, Kubernetes, Ansible, Terraform, AWS (EC2, S3, VPC, IAM), Maven, SonarQube, Nexus, and more. These are the exact tools used by top companies worldwide.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do I register and pay?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Simply click the "Enroll Now" button anywhere on this page. It will take you directly to our WhatsApp where you can discuss payment options, ask any questions, and purchase your enrollment form to begin registration.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will I get a certificate after completing the course?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Yes. Upon completion, you'll receive a Greentick Cloud Academy certificate of completion. More importantly, we focus on helping you build the skills and portfolio that matter most to employers — real projects and practical knowledge.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CONTACT ══════ -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="contact-left">
+      <div class="reveal">
+        <div class="section-label">// get in touch</div>
+        <h2 class="section-title">Ready to Start<br/>Your Journey?</h2>
+        <p class="section-sub">Have questions before enrolling? No problem. Reach out to us through any of the channels below. We're here to help.</p>
+      </div>
+      <div class="contact-methods">
+        <a href="https://wa.me/2349162828407" target="_blank" class="contact-method reveal">
+          <div class="contact-method-icon cm-green">📱</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>+234 916 282 8407 — Message us anytime</p>
+          </div>
+        </a>
+        <a href="tel:+2349162828407" class="contact-method reveal">
+          <div class="contact-method-icon cm-blue">📞</div>
+          <div>
+            <h4>Phone Call</h4>
+            <p>+234 916 282 8407 — Mon to Fri, 9am–6pm</p>
+          </div>
+        </a>
+        <a href="mailto:automationhub2026@gmail.com" class="contact-method reveal">
+          <div class="contact-method-icon cm-cyan">✉️</div>
+          <div>
+            <h4>Email Us</h4>
+            <p>automationhub2026@gmail.com</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right reveal">
+      <div class="enroll-card">
+        <div class="enroll-icon">🚀</div>
+        <h3>Begin Your Transformation</h3>
+        <p>Click below to open WhatsApp and connect with us directly. Purchase your enrollment form and start your journey to becoming a certified Cloud or DevOps Engineer.</p>
+        <a href="https://wa.me/2349162828407" target="_blank" class="btn-enroll-large">📱 Message Us on WhatsApp</a>
+        <div class="enroll-note">You'll be redirected to WhatsApp to complete enrollment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo-icon">✓</div>
+      <p>© 2026 Greentick Cloud Academy. All rights reserved.</p>
+    </div>
+    <div class="footer-right">
+      <a href="#about">About</a>
+      <a href="#syllabus">Curriculum</a>
+      <a href="#guarantee">Guarantee</a>
+      <a href="#why">Why Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:automationhub2026@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════ FLOATING WHATSAPP ══════ -->
+<a href="https://wa.me/2349162828407" target="_blank" class="whatsapp-float">
+  <div class="pulse-ring"></div>
+  💬
+</a>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ Toggle
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // Open clicked if it wasn't open
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Mobile Nav
+  function toggleMobileNav() {
+    const menu = document.getElementById('mobile-menu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobile-menu').style.display = 'none';
+  }
+
+  // Smooth navbar background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(11,22,40,0.95)';
+    } else {
+      nav.style.background = 'rgba(11,22,40,0.85)';
+    }
+  });
+</script>
+
+</body>
+</html>
